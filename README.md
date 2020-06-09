@@ -1,6 +1,8 @@
 # Calendar Event Sync
 An Outlandish Plugin
 
+[![Build Status](https://travis-ci.com/outlandishideas/calendar-event-sync.svg?branch=master)](https://travis-ci.com/outlandishideas/calendar-event-sync)
+
 This plugin adds a WP-CLI command to authenticate with a Google Calendar
 and sync events from it to your WordPress instance; storing them as posts
 with a `post_type` of `event`.
