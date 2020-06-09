@@ -18,6 +18,19 @@ class ConfigTest extends TestCase
     }
 
     /** @test */
+    public function it_overwrites_an_existing_access_token_if_one_already_exists()
+    {
+        $oldAccessToken = ['access_token' => '123814279387'];
+        add_option('google_calendar_access_token', json_encode($oldAccessToken));
+
+        $newAccessToken = ['access_token' => '0987654321'];
+
+        $this->getConfig()->setAccessToken($newAccessToken);
+
+        $this->assertAccessTokenStored($newAccessToken);
+    }
+
+    /** @test */
     public function it_retrieves_an_access_token_in_the_options_table()
     {
         $config = new Config();

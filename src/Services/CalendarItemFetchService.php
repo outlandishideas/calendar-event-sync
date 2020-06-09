@@ -55,8 +55,6 @@ class CalendarItemFetchService
      */
     public function fetch($maxResults)
     {
-        $this->calendar->getClient()->setAccessToken($this->config->getAccessToken());
-
         $optParams = array(
             'maxResults' => $maxResults,
             'orderBy' => 'startTime',

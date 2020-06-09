@@ -25,7 +25,11 @@ class Config
      */
     public function setAccessToken(array $accessToken)
     {
-        add_option(static::ACCESS_TOKEN_KEY, json_encode($accessToken));
+        $wasAdded = add_option(static::ACCESS_TOKEN_KEY, json_encode($accessToken));
+
+        if (!$wasAdded) {
+            update_option(static::ACCESS_TOKEN_KEY, json_encode($accessToken));
+        }
     }
 
     /**

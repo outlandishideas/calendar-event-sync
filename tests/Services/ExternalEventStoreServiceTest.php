@@ -31,7 +31,7 @@ class ExternalEventStoreServiceTest extends TestCase
         $event->expects('getId')->andReturn($id);
         $event->expects('getSummary')->once();
 
-        $this->repository->expects('existsByExternalId')->with($id)->andReturn(true);
+        $this->repository->expects('existsByExternalId')->with('outlandish_calender_event_sync_event_id', $id)->andReturn(true);
 
         $this->expectException(ExternalEventExistsException::class);
 
