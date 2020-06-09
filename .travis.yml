@@ -7,6 +7,7 @@ before_script:
 script:
   - docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit
   
+  
 cache:
   timeout: 1000
   directories:
