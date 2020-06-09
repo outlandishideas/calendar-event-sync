@@ -1,0 +1,36 @@
+{
+  "name": "outlandish/calendar-event-sync",
+  "description": "WordPress plugin to create posts from calendar entries",
+  "minimum-stability": "dev",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Outlandish Cooperative",
+      "email": "hello@outlandish.com",
+      "homepage":"https://outlandish.com"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=7.2",
+    "composer/installers": "~1.0",
+    "google/apiclient": "v2.4.1",
+    "wp-cli/wp-cli": "2.4.1",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Outlandish\\CalendarEventSync\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Outlandish\\CalendarEventSync\\Tests\\": "tests/"
+    }
+  },
+  "prefer-stable": true,
+  "require-dev": {
+    "brain/monkey": "2.*",
+    "phpunit/phpunit": "7.*"
+  }
+}
