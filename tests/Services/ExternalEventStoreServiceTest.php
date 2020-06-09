@@ -16,10 +16,16 @@ class ExternalEventStoreServiceTest extends TestCase
      */
     protected $repository;
 
+    /**
+     * @var string
+     */
+    protected $externalEventIdKey;
+
     protected function setUp()
     {
         parent::setUp();
         $this->repository = m::mock(ExternalEventRepository::class);
+        $this->externalEventIdKey = 'outlandish_calender_event_sync_event_id';
     }
 
     /** @test */
@@ -31,7 +37,7 @@ class ExternalEventStoreServiceTest extends TestCase
         $event->expects('getId')->andReturn($id);
         $event->expects('getSummary')->once();
 
-        $this->repository->expects('existsByExternalId')->with('outlandish_calender_event_sync_event_id', $id)->andReturn(true);
+        $this->repository->expects('existsByExternalId')->with($this->externalEventIdKey, $id)->andReturn(true);
 
         $this->expectException(ExternalEventExistsException::class);
 
@@ -52,6 +58,6 @@ class ExternalEventStoreServiceTest extends TestCase
 
     protected function getService()
     {
-        return new ExternalEventStoreService($this->repository);
+        return new ExternalEventStoreService($this->repository, $this->externalEventIdKey);
     }
 }

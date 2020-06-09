@@ -20,21 +20,24 @@ use Outlandish\Website\PostTypes\Event;
  */
 class ExternalEventStoreService
 {
-    const EXTERNAL_ID_KEY = 'outlandish_calender_event_sync_event_id';
 
     /**
      * @var ExternalEventRepository
      */
     private $repository;
 
+    private $externalIdKey;
+
     /**
      * ExternalEventStoreService constructor.
      *
      * @param ExternalEventRepository $repository
+     * @param                         $externalIdKey
      */
-    public function __construct(ExternalEventRepository $repository)
+    public function __construct(ExternalEventRepository $repository, $externalIdKey)
     {
         $this->repository = $repository;
+        $this->externalIdKey = $externalIdKey;
     }
 
     /**
@@ -46,7 +49,7 @@ class ExternalEventStoreService
      */
     public function storeEvent(ExternalEvent $event)
     {
-        $exists = $this->repository->existsByExternalId(static::EXTERNAL_ID_KEY, $event->getId());
+        $exists = $this->repository->existsByExternalId($this->externalIdKey, $event->getId());
 
         if ($exists) {
             throw new ExternalEventExistsException("Event {$event->getSummary()} already exists");
@@ -55,19 +58,4 @@ class ExternalEventStoreService
         $this->repository->add($event);
     }
 
-    public static function defaultStoreStrategy(ExternalEvent $event, $postType)
-    {
-        $id = wp_insert_post([
-            'post_title' => $event->getSummary(),
-            'post_type' => $postType,
-            'post_status' => 'draft',
-            'post_name' => $event->getId()
-        ]);
-
-        $event->setPostId($id);
-
-        add_post_meta($id, static::EXTERNAL_ID_KEY, $event->getId());
-
-        wp_update_post(['ID' => $id, 'post_status' => 'publish']);
-    }
 }
