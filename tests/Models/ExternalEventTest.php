@@ -108,5 +108,29 @@ class ExternalEventTest extends TestCase
         $this->assertEquals((new DateTime($datetime))->getTimestamp(), $event->getEndTime()->getTimestamp());
     }
 
+    /** @test */
+    public function it_confirms_that_it_has_not_been_saved_to_wordpress()
+    {
+        $googleEvent = new Google_Service_Calendar_Event();
+
+        $event = new ExternalEvent($googleEvent);
+
+        $this->assertFalse($event->savedToWordPress());
+    }
+
+    /** @test */
+    public function it_can_be_shown_to_have_been_saved_to_the_database()
+    {
+        $googleEvent = new Google_Service_Calendar_Event();
+
+        $event = new ExternalEvent($googleEvent);
+
+        $wpId = '1';
+        //after being saved to the datbase
+        $event->setPostId($wpId);
+
+        $this->assertTrue($event->savedToWordPress());
+        $this->assertSame($wpId, $event->getPostId($wpId));
+    }
 
 }

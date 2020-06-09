@@ -64,6 +64,8 @@ class ExternalEventStoreService
             'post_name' => $event->getId()
         ]);
 
+        $event->setPostId($id);
+
         add_post_meta($id, static::EXTERNAL_ID_KEY, $event->getId());
 
         wp_update_post(['ID' => $id, 'post_status' => 'publish']);

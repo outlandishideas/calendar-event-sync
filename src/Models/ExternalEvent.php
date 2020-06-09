@@ -23,6 +23,13 @@ class ExternalEvent
     private $event;
 
     /**
+     * The Post ID of this external event
+     *
+     * @var string|null
+     */
+    private $postId;
+
+    /**
      * ExternalEvent constructor.
      *
      * @param Google_Service_Calendar_Event $event The external event
@@ -91,6 +98,39 @@ class ExternalEvent
     public function getEndTime()
     {
         return new DateTimeImmutable($this->event->getEnd()->getDateTime());
+    }
+
+    /**
+     * Return whether this post has been saved to WordPress
+     *
+     * @return bool
+     */
+    public function savedToWordPress()
+    {
+        return (bool) $this->postId;
+    }
+
+    /**
+     * Set the post id of this external event
+     *
+     * @param string $postId
+     *
+     * @return void
+     */
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
+    }
+
+
+    /**
+     * Get the post id of this external event
+     *
+     * @return string
+     */
+    public function getPostId()
+    {
+        return $this->postId;
     }
 
 }
