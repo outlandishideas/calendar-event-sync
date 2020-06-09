@@ -2,10 +2,10 @@ services:
   - docker
 
 before_script:
-  - composer install
+  - composer install --ignore-platform-reqs
 
 script:
-  - docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit
+  - docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit --no-coverage
   
   
 cache:

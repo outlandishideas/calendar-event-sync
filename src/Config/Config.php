@@ -56,7 +56,7 @@ class Config
             return GOOGLE_CALENDAR_ID;
         }
 
-        return get_option(static::ACCESS_TOKEN_KEY);
+        return get_option(static::CALENDAR_ID_KEY);
     }
 
     /**

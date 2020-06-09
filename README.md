@@ -215,3 +215,14 @@ and then run
     docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit
     
 This will run all tests defined in the Unit testsuite and output the results.
+
+> This plugin expects pconv to be installed when running the tests for code
+> coverage results. If you do not have this installed on your local version of 
+> php, you can run `composer install --ignore-platform-reqs` to install required
+> packages without needing for pcov to be installed.
+
+### Test Coverage
+
+When you run the tests you will also produce an HTML report that will appear in 
+`reports/coverage` which will provide you with information about the code that
+is covered by the tests.

@@ -8,6 +8,9 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <logging>
+        <log type="coverage-html" target="./reports/coverage"/>
+    </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>

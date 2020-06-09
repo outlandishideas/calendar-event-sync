@@ -51,6 +51,37 @@ class ConfigTest extends TestCase
         $this->assertNull($result);
     }
 
+    /** @test */
+    public function it_returns_the_google_calendar_id_value_from_the_database_if_constant_not_set()
+    {
+        $calendar = 'test@test.com';
+        add_option('google_calendar_id', $calendar);
+
+        $result = $this->getConfig()->getCalendarId();
+
+        $this->assertEquals($calendar, $result);
+    }
+
+    /** @test */
+    public function it_returns_the_google_calendar_id_constant()
+    {
+        define('GOOGLE_CALENDAR_ID', 'test@test.com');
+
+        $result = $this->getConfig()->getCalendarId();
+
+        $this->assertEquals(GOOGLE_CALENDAR_ID, $result);
+    }
+
+    /** @test */
+    public function it_sets_the_google_calendar_id_value_into_the_database()
+    {
+        $calendar = 'test@test.com';
+
+        $result = $this->getConfig()->setCalendarId($calendar);
+
+        $this->assertCalendarIdStored($calendar);
+    }
+
     protected function getConfig()
     {
         return new Config();
@@ -59,12 +90,23 @@ class ConfigTest extends TestCase
     /**
      * Assert that the access token was stored in the wp_options table
      *
-     * @param $accessToken
+     * @param $expected
      */
-    protected function assertAccessTokenStored($accessToken)
+    protected function assertAccessTokenStored($expected)
     {
         $stored = json_decode(get_option('google_calendar_access_token'), true);
-        $this->assertEquals($stored, $accessToken);
+        $this->assertEquals($expected, $stored);
+    }
+
+    /**
+     * Assert that the access token was stored in the wp_options table
+     *
+     * @param $expected
+     */
+    protected function assertCalendarIdStored($expected)
+    {
+        $stored = get_option('google_calendar_id');
+        $this->assertEquals($expected, $stored);
     }
 
     protected function tearDown()
