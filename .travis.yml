@@ -1,0 +1,13 @@
+services:
+  - docker
+
+before_script:
+  - composer install
+
+script:
+  - docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit
+  
+cache:
+  timeout: 1000
+  directories:
+    - vendor
