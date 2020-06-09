@@ -202,3 +202,14 @@ You can then define your own storage strategy like so
         }
         
     }, 10);
+
+## Testing
+
+Tests have been written with the use of `humanmade/plugin-tester` docker image in mind. 
+
+To run the project's tests run `composer install` to install the plugin's dependencies, 
+and then run 
+
+    docker run --rm -v "$PWD:/code" humanmade/plugin-tester --testsuite=Unit
+    
+This will run all tests defined in the Unit testsuite and output the results.
